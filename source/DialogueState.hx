@@ -26,6 +26,7 @@ class DialogueState extends FlxState
 
 		diaText = new FlxText();
 		diaText.color = FlxColor.WHITE;
+		diaText.size = 32;
 		add(diaText);
 
 		if (level == 1)
