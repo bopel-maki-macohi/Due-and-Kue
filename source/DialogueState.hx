@@ -33,8 +33,8 @@ class DialogueState extends FlxState
 
 		if (level == 1)
 		{
-			dia_due = new FlxSprite(0, 0, 'assets/images/dia/due1.png');
-			dia_kue = new FlxSprite(0, 0, 'assets/images/dia/kue1.png');
+			dia_due = new FlxSprite(0, 0, 'assets/images/dia/due-big.png');
+			dia_kue = new FlxSprite(0, 0, 'assets/images/dia/kue-big.png');
 
 			dia_due.screenCenter();
 			add(dia_due);
@@ -43,8 +43,8 @@ class DialogueState extends FlxState
 			add(dia_kue);
 
 			inDialogue = true;
-			due = new FlxSprite(0, 0, 'assets/images/play/due.png');
-			kue = new FlxSprite(0, 0, 'assets/images/play/kue.png');
+			due = new FlxSprite(0, 0, 'assets/images/dia/due-mini.png');
+			kue = new FlxSprite(0, 0, 'assets/images/dia/kue-mini.png');
 			add(due);
 			add(kue);
 
