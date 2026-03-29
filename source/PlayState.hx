@@ -3,26 +3,19 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.group.FlxSpriteGroup;
-import flixel.text.FlxText;
-import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
 
 class PlayState extends FlxState
 {
-	public static var SEEN_CUTSCENES:Array<Int> = [];
+	public static var SEEN_CUTSCENES:Array<Dynamic> = [];
 
-	public var level:Int = 0;
+	public var level:Dynamic = 'intro';
 
-	override public function new(level:Int = 1)
+	override public function new(level:Dynamic = 'intro')
 	{
 		super();
 
 		this.level = level;
-
-		if (this.level < 1)
-			this.level = 1;
 	}
 
 	public var due:FlxSprite;
@@ -44,43 +37,36 @@ class PlayState extends FlxState
 		add(fgElements);
 		add(fgOptionElements);
 
-		if (level == 1)
+		if (level == 'intro')
 		{
 			if (!SEEN_CUTSCENES.contains(level))
 				FlxG.switchState(() -> new DialogueState(level));
+		}
+
+		if (level == 'start')
+		{
 			FlxG.camera.bgColor = FlxColor.fromString('#1D1B23');
 
-			bgElements.add(new FlxSprite(191, 0, 'assets/images/play/level1/door-select.png'));
-			bgElements.members[0].visible = false;
+			bgOptionElements.add(new TouchMeSprite(201, 0, 'assets/images/play/level1/door.png').addClickFunction(() -> newLevel('enterDoor')));
 
-			bgOptionElements.add(new FlxSprite(201, 0, 'assets/images/play/level1/door.png'));
+			mgElements.add(new TouchMeSprite(0, 0, 'assets/images/play/level1/floorback.png'));
+			mgElements.add(new TouchMeSprite(0, 0, 'assets/images/play/level1/wall.png'));
 
-			mgElements.add(new FlxSprite(0, 0, 'assets/images/play/level1/floorback.png'));
-			mgElements.add(new FlxSprite(0, 0, 'assets/images/play/level1/wall.png'));
-
-			fgElements.add(new FlxSprite(391, 0, 'assets/images/play/level1/rope-select.png'));
-			fgElements.members[0].visible = false;
-
-			fgOptionElements.add(new FlxSprite(401, 0, 'assets/images/play/level1/rope.png'));
+			fgOptionElements.add(new TouchMeSprite(401, 0, 'assets/images/play/level1/rope.png').addClickFunction(() -> newLevel('climbRope')));
 		}
 	}
 
-	override public function update(elapsed:Float)
+	public static function newLevel(level:String)
 	{
-		super.update(elapsed);
-		if (level == 1)
-		{
-			fgElements.members[0].visible = FlxG.mouse.overlaps(fgOptionElements.members[0]);
-			bgElements.members[0].visible = FlxG.mouse.overlaps(bgOptionElements.members[0]) && !fgElements.members[0].visible;
-		}
+		FlxG.switchState(() -> new PlayState(level));
 	}
 
-	public var bgElements:FlxSpriteGroup = new FlxSpriteGroup();
-	public var bgOptionElements:FlxSpriteGroup = new FlxSpriteGroup();
+	public var bgElements:TouchMeSpriteGroup = new TouchMeSpriteGroup();
+	public var bgOptionElements:TouchMeSpriteGroup = new TouchMeSpriteGroup();
 
-	public var mgElements:FlxSpriteGroup = new FlxSpriteGroup();
-	public var mgOptionElements:FlxSpriteGroup = new FlxSpriteGroup();
+	public var mgElements:TouchMeSpriteGroup = new TouchMeSpriteGroup();
+	public var mgOptionElements:TouchMeSpriteGroup = new TouchMeSpriteGroup();
 
-	public var fgElements:FlxSpriteGroup = new FlxSpriteGroup();
-	public var fgOptionElements:FlxSpriteGroup = new FlxSpriteGroup();
+	public var fgElements:TouchMeSpriteGroup = new TouchMeSpriteGroup();
+	public var fgOptionElements:TouchMeSpriteGroup = new TouchMeSpriteGroup();
 }

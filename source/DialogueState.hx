@@ -9,16 +9,13 @@ import flixel.util.FlxTimer;
 
 class DialogueState extends FlxState
 {
-	public var level:Int = 0;
+	public var level:Dynamic = '';
 
-	override public function new(level:Int = 1)
+	override public function new(level:Dynamic = 'intro')
 	{
 		super();
 
 		this.level = level;
-
-		if (this.level < 1)
-			this.level = 1;
 	}
 
 	override public function create()
@@ -33,7 +30,7 @@ class DialogueState extends FlxState
 		diaText.size = 32;
 		add(diaText);
 
-		if (level == 1)
+		if (level == 'intro')
 		{
 			dia_due = new FlxSprite(0, 0, 'assets/images/dia/due-big.png');
 			dia_kue = new FlxSprite(0, 0, 'assets/images/dia/kue-big.png');
@@ -71,10 +68,10 @@ class DialogueState extends FlxState
 			if (FlxG.keys.justPressed.SPACE)
 				dialogueBit++;
 
-		if (level == 1)
+		if (level == 'intro')
 		{
-			dia_due.visible = dd.contains(dialogueBit);
-			dia_kue.visible = dk.contains(dialogueBit);
+			dia_due.visible = [0, 2, 3].contains(dialogueBit);
+			dia_kue.visible = [1, 4].contains(dialogueBit);
 
 			if (dialogueBit == 0 || dialogueBit == 2)
 				diaText.text = 'KUE!';
@@ -110,7 +107,7 @@ class DialogueState extends FlxState
 
 						FlxTimer.wait(1, () ->
 						{
-							FlxG.switchState(() -> new PlayState(level));
+							PlayState.newLevel('start');
 						});
 					}
 				});
@@ -132,11 +129,7 @@ class DialogueState extends FlxState
 
 	public var dia_due:FlxSprite;
 
-	final dd = [0, 2, 3];
-
 	public var dia_kue:FlxSprite;
-
-	final dk = [1, 4];
 
 	public var due:FlxSprite;
 	public var kue:FlxSprite;
