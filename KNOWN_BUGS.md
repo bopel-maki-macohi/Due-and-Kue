@@ -1,0 +1,1 @@
+- Flicker in intro dialogue before kue flies away

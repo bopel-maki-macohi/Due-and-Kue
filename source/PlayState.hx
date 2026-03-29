@@ -49,7 +49,7 @@ class PlayState extends FlxState
 		{
 			FlxG.camera.bgColor = FlxColor.fromString('#1D1B23');
 
-			bgOptionElements.add(new TouchMeSprite(201, 0, 'assets/play/level1/door.png').addClickFunction(() -> newLevel('enterDoor')));
+			bgOptionElements.add(new TouchMeSprite(201, 6, 'assets/play/level1/door.png').addClickFunction(() -> newLevel('enterDoor')));
 
 			mgElements.add(new TouchMeSprite(0, 0, 'assets/play/level1/floorback.png'));
 			mgElements.add(new TouchMeSprite(0, 0, 'assets/play/level1/wall.png'));
