@@ -41,6 +41,7 @@ class DialogueState extends FlxState
 
 			inDialogue = true;
 		}
+		PlayState.SEEN_CUTSCENES.push(this.level);
 	}
 
 	override public function update(elapsed:Float)
