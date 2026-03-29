@@ -17,7 +17,10 @@ class PlayState extends FlxState
 
 		this.level = level ?? 'intro';
 		trace('New level: ${this.level}');
+
 		Main.save.data.lastLevel = this.level;
+		if (!Main.save.data.unlockedLevels.contains(this.level))
+			Main.save.data.unlockedLevels.push(this.level);
 	}
 
 	public var due:FlxSprite;
