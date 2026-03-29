@@ -31,7 +31,7 @@ class PlayState extends FlxState
 		add(mgElements);
 		add(mgOptionElements);
 
-		due = new FlxSprite(0, 0, 'assets/images/play/due.png');
+		due = new FlxSprite(0, 0, 'assets/play/due.png');
 		add(due);
 
 		due.screenCenter();
@@ -49,12 +49,12 @@ class PlayState extends FlxState
 		{
 			FlxG.camera.bgColor = FlxColor.fromString('#1D1B23');
 
-			bgOptionElements.add(new TouchMeSprite(201, 0, 'assets/images/play/level1/door.png').addClickFunction(() -> newLevel('enterDoor')));
+			bgOptionElements.add(new TouchMeSprite(201, 0, 'assets/play/level1/door.png').addClickFunction(() -> newLevel('enterDoor')));
 
-			mgElements.add(new TouchMeSprite(0, 0, 'assets/images/play/level1/floorback.png'));
-			mgElements.add(new TouchMeSprite(0, 0, 'assets/images/play/level1/wall.png'));
+			mgElements.add(new TouchMeSprite(0, 0, 'assets/play/level1/floorback.png'));
+			mgElements.add(new TouchMeSprite(0, 0, 'assets/play/level1/wall.png'));
 
-			fgOptionElements.add(new TouchMeSprite(401, 0, 'assets/images/play/level1/rope.png').addClickFunction(() -> newLevel('climbRope')));
+			fgOptionElements.add(new TouchMeSprite(401, 0, 'assets/play/level1/rope.png').addClickFunction(() -> newLevel('climbRope')));
 		}
 	}
 
