@@ -4,7 +4,9 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 
 class PlayState extends FlxState
 {
@@ -28,15 +30,11 @@ class PlayState extends FlxState
 		if (level == 1)
 		{
 			due = new FlxSprite(0, 0, 'assets/images/play/due.png');
-			kue = new FlxSprite(0, 0, 'assets/images/play/kue.png');
 			add(due);
-			add(kue);
 
 			due.screenCenter();
-			kue.screenCenter();
 
 			due.x -= due.width;
-			kue.x += kue.width;
 
 			if (!SEEN_CUTSCENES.contains(level))
 				FlxG.switchState(() -> new DialogueState(level));
@@ -47,6 +45,6 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 	}
+
 	public var due:FlxSprite;
-	public var kue:FlxSprite;
 }

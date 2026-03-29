@@ -2,6 +2,8 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
@@ -41,6 +43,19 @@ class DialogueState extends FlxState
 			add(dia_kue);
 
 			inDialogue = true;
+			due = new FlxSprite(0, 0, 'assets/images/play/due.png');
+			kue = new FlxSprite(0, 0, 'assets/images/play/kue.png');
+			add(due);
+			add(kue);
+
+			due.screenCenter();
+			kue.screenCenter();
+
+			due.x -= due.width;
+			kue.x += kue.width;
+
+			due.visible = false;
+			kue.visible = false;
 		}
 		PlayState.SEEN_CUTSCENES.push(this.level);
 	}
@@ -49,6 +64,7 @@ class DialogueState extends FlxState
 	{
 		super.update(elapsed);
 
+		diaText.visible = inDialogue;
 		if (inDialogue)
 			if (FlxG.keys.justPressed.SPACE)
 				dialogueBit++;
@@ -66,13 +82,35 @@ class DialogueState extends FlxState
 				diaText.text = 'IM GONNA BEAT YOUR ASS!';
 			else if (dialogueBit == 4)
 				diaText.text = 'Gota catch me first >:3';
-			else
+			else if (dialogueBit == 5)
 			{
 				inDialogue = false;
+				dialogueBit++;
 
-				FlxTimer.wait(1, () ->
-				{
-					FlxG.switchState(() -> new PlayState(level));
+				kue.visible = true;
+				due.visible = true;
+
+				FlxTween.tween(kue, {y: -kue.height}, .2, {
+					startDelay: 1,
+					ease: FlxEase.sineOut,
+					onComplete: function(t)
+					{
+						kue.visible = false;
+					}
+				});
+
+				FlxTween.tween(due, {x: FlxG.width + due.width}, 1.5, {
+					startDelay: 2,
+					ease: FlxEase.sineIn,
+					onComplete: function(t)
+					{
+						due.visible = false;
+
+						FlxTimer.wait(1, () ->
+						{
+							FlxG.switchState(() -> new PlayState(level));
+						});
+					}
 				});
 			}
 			diaText.screenCenter();
@@ -96,5 +134,8 @@ class DialogueState extends FlxState
 
 	public var dia_kue:FlxSprite;
 
-	final dk = [1, 4, 5];
+	final dk = [1, 4];
+
+	public var due:FlxSprite;
+	public var kue:FlxSprite;
 }
