@@ -27,15 +27,13 @@ class PlayState extends FlxState
 	override public function create()
 	{
 		super.create();
+		due = new FlxSprite(0, 0, 'assets/images/play/due.png');
+		add(due);
+
+		due.screenCenter();
+
 		if (level == 1)
 		{
-			due = new FlxSprite(0, 0, 'assets/images/play/due.png');
-			add(due);
-
-			due.screenCenter();
-
-			due.x -= due.width;
-
 			if (!SEEN_CUTSCENES.contains(level))
 				FlxG.switchState(() -> new DialogueState(level));
 		}
