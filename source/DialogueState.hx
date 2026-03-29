@@ -16,6 +16,7 @@ class DialogueState extends FlxState
 		super();
 
 		this.level = level;
+		trace('Dialogue for level: ${this.level}');
 	}
 
 	override public function create()
